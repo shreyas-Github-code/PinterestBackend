@@ -21,16 +21,27 @@ router.get('/login', function (req, res, next) {
 router.get('/profile',isLoggedIn, async function (req, res, next) {
   const user = await userModel.findOne({
     username:req.session.passport.user,
-  });
+  }).populate('posts');
   res.render('profile',{user:user});
 });
-router.post('/upload', upload.single('file'), (req, res) => {
+router.post('/upload',isLoggedIn,upload.single('file'),  async (req, res) => {
   // Access the uploaded file details via req.file
   if (!req.file) {
     return res.status(400).send('No files were uploaded.');
   }
+  const user = await userModel.findOne({
+    username:req.session.passport.user,
+  });
+  const post = await postModel.create({
+    image:req.file.filename,
+    imageText:req.body.imageText,
+    user:user._id,
+  });
 
-  res.send('File uploaded successfully!');
+  user.posts.push(post._id);
+  await user.save();
+
+  res.redirect('profile');
 });
 
 router.get('/feed', function (req, res, next) {

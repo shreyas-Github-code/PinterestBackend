@@ -107,36 +107,36 @@
         }
 
         .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            /* Change from space-around to center */
-        }
+        display: flex;
+        flex-wrap: wrap;
+        
+        justify-content: space-around; /* Adjust spacing between cards */
+        margin-top: 20px; /* Add margin for separation from profile container */
+    }
 
-        .card {
-            width: 250px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 16px;
-            overflow: hidden;
-            flex-grow: 1;
-            /* Allow cards to grow to fill available space */
-        }
+    .card {
+        width: 250px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 16px;
+        overflow: hidden;
+        /* Removed flex-grow: 1; to prevent stretching */
+    }
 
+    .card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
 
+    .card-caption {
+        padding: 16px;
+        text-align: center;
+    }
 
-        .card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .card-caption {
-            padding: 16px;
-            text-align: center;
-        }
+        
     </style>
 </head>
 
@@ -157,6 +157,7 @@
             </div>
 
             <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="text" name="imageText" placeholder="Add Caption">
                 <input type="file" name="file">
                 <input type="submit" class="upload-button">
             </form>
@@ -164,26 +165,17 @@
 
         <!-- Card container for additional images -->
         <div class="card-container">
-            <div class="card">
-                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
-                    alt="Card Image 1">
-                <div class="card-caption">Caption 1</div>
-            </div>
-            <div class="card">
-                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
-                    alt="Card Image 1">
-                <div class="card-caption">Caption 1</div>
-            </div>
-            <div class="card">
-                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
-                    alt="Card Image 1">
-                <div class="card-caption">Caption 1</div>
-            </div>
-            <div class="card">
-                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
-                    alt="Card Image 1">
-                <div class="card-caption">Caption 1</div>
-            </div>
+            
+                <% user.posts.forEach((post)=>{%>
+                    <div class="card">
+                    <img src="images/uploads/<%= post.image%>"
+                        alt="Card Image 1">
+                    <div class="card-caption"><%= post.imageText%></div>
+                </div>
+                    <%})%>
+
+            
+           
             <!-- Add more cards as needed -->
         </div>
     </div>
