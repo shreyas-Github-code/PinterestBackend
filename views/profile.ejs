@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .profile-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-container {
+            width: 80%;
+            /* Adjust the width as needed */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+        }
+
+        .user-info h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .user-info p {
+            margin: 8px 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .user-info a {
+            text-decoration: none;
+            color: #e1c6c6;
+            font-weight: bold;
+        }
+
+        .logout-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e63724;
+            /* Red background color */
+            color: #fff;
+            /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #7d1a1a;
+            /* Darker red on hover */
+        }
+
+        .upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #245be6;
+            /* Red background color */
+            color: #fff;
+            /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .upload-button:hover {
+            background-color: #1a2f7d;
+            /* Darker red on hover */
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            /* Change from space-around to center */
+        }
+
+        .card {
+            width: 250px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 16px;
+            overflow: hidden;
+            flex-grow: 1;
+            /* Allow cards to grow to fill available space */
+        }
+
+
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card-caption {
+            padding: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-wrapper">
+        <div class="profile-container">
+            <div class="profile-picture">
+                <img src="https://srcwap.com/wp-content/uploads/2022/08/abstract-user-flat-4.png" alt="Profile Picture">
+            </div>
+            <div class="user-info">
+                <h1><%= user.fullname %></h1>
+                <p>@<%= user.username %></p>
+                <p>Email: <%= user.email %></p>
+                <p>Location: LA,USA</p>
+                <a href="/logout" class="logout-button">Logout</a>
+                
+            </div>
+
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <input type="submit" class="upload-button">
+            </form>
+        </div>
+
+        <!-- Card container for additional images -->
+        <div class="card-container">
+            <div class="card">
+                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
+                    alt="Card Image 1">
+                <div class="card-caption">Caption 1</div>
+            </div>
+            <div class="card">
+                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
+                    alt="Card Image 1">
+                <div class="card-caption">Caption 1</div>
+            </div>
+            <div class="card">
+                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
+                    alt="Card Image 1">
+                <div class="card-caption">Caption 1</div>
+            </div>
+            <div class="card">
+                <img src="https://rightjobfit.com/wp-content/uploads/2020/08/ways-to-build-a-profile-for-freelancers.jpg"
+                    alt="Card Image 1">
+                <div class="card-caption">Caption 1</div>
+            </div>
+            <!-- Add more cards as needed -->
+        </div>
+    </div>
+
+</body>
+
+</html>

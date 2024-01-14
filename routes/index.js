@@ -5,20 +5,36 @@ const userModel = require('./users');
 const postModel = require('./posts');
 const passport = require('passport');
 const localStrategy = require('passport-local');
+const upload = require('./multer')
 
 passport.use(new localStrategy(userModel.authenticate()));
 // mongoose.connect("mongodb://127.0.0.1:27017/pinterestapp");
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', {error:req.flash('error')});
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('login');
+  res.render('login',{error:req.flash('error')});
 });
 
-router.get('/profile',isLoggedIn, function (req, res, next) {
-  res.send('profile');
+router.get('/profile',isLoggedIn, async function (req, res, next) {
+  const user = await userModel.findOne({
+    username:req.session.passport.user,
+  });
+  res.render('profile',{user:user});
+});
+router.post('/upload', upload.single('file'), (req, res) => {
+  // Access the uploaded file details via req.file
+  if (!req.file) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  res.send('File uploaded successfully!');
+});
+
+router.get('/feed', function (req, res, next) {
+  res.render('feed');
 });
 
 // router.get('/createuser', async function (req, res, next) {
@@ -67,6 +83,7 @@ router.post('/register',(req,res)=>{
 router.post('/login',passport.authenticate('local',{
   successRedirect:'/profile',
   failureRedirect:'/login',
+  failureFlash:true,
 }),(req,res)=>{
 
 })
