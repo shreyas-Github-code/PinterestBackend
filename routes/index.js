@@ -44,8 +44,18 @@ router.post('/upload',isLoggedIn,upload.single('file'),  async (req, res) => {
   res.redirect('profile');
 });
 
-router.get('/feed', function (req, res, next) {
-  res.render('feed');
+router.get('/feed', async function (req, res, next) {
+  try {
+    // Assuming you have a find method to retrieve all posts
+    const allPosts = await postModel.find({});
+
+    // Render the 'feed' template and pass the posts as data
+    res.render('feed', { posts: allPosts });
+  } catch (error) {
+    // Handle the error appropriately
+    console.error('Error fetching posts:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 // router.get('/createuser', async function (req, res, next) {
