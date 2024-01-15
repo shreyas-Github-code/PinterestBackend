@@ -227,6 +227,28 @@
     background-color: #1a507d;
 }
 
+/* Add these styles to your existing CSS */
+
+.file-selected {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #333;
+}
+
+/* Additional styles for better visibility and aesthetics */
+.file-selected::before {
+    content: '\2022'; /* Bullet point character */
+    margin-right: 5px;
+    color: #6f81ae; /* Match the file input background color */
+}
+
+.file-selected::after {
+    content: '|';
+    margin-left: 5px;
+    color: #6f81ae;
+}
+
+
 
    
 
@@ -267,9 +289,10 @@
             <div class="file-input-container">
                 <label for="file" class="file-label">
                     Choose a file
-                    <input type="file" name="file" id="file" class="file-input">
+                    <input type="file" name="file" id="file" class="file-input" onchange="updateFileName(this)">
                 </label>
             </div>
+            <span id="file-selected" class="file-selected"></span>
             <button type="submit" class="upload-button">Upload</button>
         </form>
         
@@ -290,7 +313,16 @@
             <!-- Add more cards as needed -->
         </div>
     </div>
-
+    <script>
+        function updateFileName(input) {
+            const fileSelected = document.getElementById('file-selected');
+            if (input.files.length > 0) {
+                fileSelected.textContent = `Selected file: ${input.files[0].name}`;
+            } else {
+                fileSelected.textContent = '';
+            }
+        }
+    </script>
 </body>
 
 </html>
